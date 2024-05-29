@@ -17,3 +17,18 @@
   color: white;
   text-align: center;
 }
+
+.home-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.home-content button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background-color: #6aa39d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}

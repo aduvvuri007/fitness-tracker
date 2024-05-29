@@ -6,10 +6,9 @@ function Home() {
         <section className="hero">
             <div className="home-content">
                 <h1>Fitness Tracker</h1>
-                <Link to="/login">Login</Link>
-                {/* <br />
-            <Link to="/register">Register</Link> */}
-                <p>Click on the links above to login or register.</p>
+                <button><Link to="/login">Login</Link></button>
+                <br />
+                <button><Link to="/register">Register</Link></button>
             </div>
         </section>
     );
