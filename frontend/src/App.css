@@ -3,7 +3,7 @@
   height: 100vh;
   background-image: url("./images/home-image.jpg");
   background-size: cover;
-  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
 }
 
 .home-content {
@@ -14,21 +14,29 @@
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(80, 168, 129);
   text-align: center;
 }
 
 .home-content h1 {
   font-size: 3rem;
+  font: 700 3rem "Poppins", fantasy;
   margin-bottom: 1rem;
 }
 
 .home-content button {
   padding: 1rem 2rem;
   font-size: 1.2rem;
+  margin: 0 1rem;
   background-color: #6aa39d;
   border: none;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
 }
