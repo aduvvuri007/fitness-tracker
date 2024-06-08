@@ -10,16 +10,9 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post('/api/register', { username, email, password });
-            if (response.data.success) {
-                navigate.push('/login');
-            } else {
-                alert(response.data.message);
-            }
-        } catch (error) {
-            console.error("There was an error registering!", error);
-        }
+        axios.post('', { username, email, password })
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error));
     };
 
     return (
