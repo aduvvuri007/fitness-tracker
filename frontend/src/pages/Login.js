@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Register() {
-    const [username, setUsername] = useState("");
+function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3001/register', { username, email, password })
+        axios.post('http://localhost:3001/login', { email, password })
             .then((response) => {
-                console.log(response)
-                navigate("/login");
+                console.log(response);
+                if (response.data === "Success") {
+                    navigate("/dashboard");
+                } else {
+                    alert("Invalid login");
+                }
             })
             .catch((error) => console.log(error));
     };
@@ -21,17 +24,8 @@ function Register() {
     return (
         <section>
             <div className="home-content">
-                <h1>Register</h1>
+                <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="username">Username</label>
-                        <input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
@@ -50,12 +44,12 @@ function Register() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit">Register</button>
+                    <button type="submit">Login</button>
                 </form>
-                <p>Already have an account? <Link to="/login">Login</Link></p>
+                <p>Don't have an account? <Link to="/register">Register</Link></p>
             </div>
         </section>
     );
 }
 
-export default Register;
+export default Login;

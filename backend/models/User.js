@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -21,5 +21,12 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-const UserModel = mongoose.model("User", UserSchema);
+userSchema.pre('save', async function (next) {
+    if (this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
+    next();
+});
+
+const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;
