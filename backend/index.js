@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const User = require("./models/User");
+const UserModel = require("./models/User");
 
 const app = express();
 app.use(express.json());
@@ -9,6 +11,14 @@ require('dotenv').config();
 
 const uri = process.env.MONGODB_URI;
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Connected to MongoDB Atlas'))
-    .catch(err => console.error('Failed to connect to MongoDB Atlas', err));
+mongoose.connect(uri);
+
+app.post("/register", (req, res) => {
+    UserModel.create(req.body)
+        .then((user) => res.json(user))
+        .catch((err) => res.json(err));
+});
+
+app.listen(3001, () => {
+    console.log("Server is running on port 3001");
+});

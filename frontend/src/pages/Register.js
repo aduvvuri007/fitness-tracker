@@ -10,7 +10,7 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post('', { username, email, password })
+        axios.post('http://localhost:3001/register', { username, email, password })
             .then((response) => console.log(response))
             .catch((error) => console.log(error));
     };
