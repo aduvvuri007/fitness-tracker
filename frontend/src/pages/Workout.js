@@ -6,7 +6,7 @@ const Workout = () => {
 
     const fetchPPLWorkout = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/generate_ppl_workout');
+            const response = await axios.get('http://127.0.0.1:5000/api/generate_ppl_workout');
             setWorkout(response.data);
         } catch (error) {
             console.error('Error fetching PPL workout', error);
@@ -15,7 +15,7 @@ const Workout = () => {
 
     const fetchArnoldWorkout = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/generate_arnold_workout');
+            const response = await axios.get('http://127.0.0.1:5000/api/generate_arnold_workout');
             setWorkout(response.data);
         } catch (error) {
             console.error('Error fetching Arnold workout', error);
