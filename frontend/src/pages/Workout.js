@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const Workout = () => {
     const [workout, setWorkout] = useState(null);
+    const [recommendations, setRecommendations] = useState({});
 
     const fetchPPLWorkout = async () => {
         try {
@@ -22,6 +23,22 @@ const Workout = () => {
         }
     };
 
+    const fetchRecommendations = async (exercise) => {
+        try {
+            const response = await axios.post(`http://127.0.0.1:5000/api/generate_other_exercises`, { exercise }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            setRecommendations((prev) => ({
+                ...prev,
+                [exercise]: response.data
+            }));
+        } catch (error) {
+            console.error('Error fetching recommendations', error);
+        }
+    };
+
     return (
         <div>
             <h1>Workout Generator</h1>
@@ -36,7 +53,17 @@ const Workout = () => {
                             <h3>{day.charAt(0).toUpperCase() + day.slice(1)} Exercises</h3>
                             <ul>
                                 {workout[day].map(exercise => (
-                                    <li key={exercise}>{exercise}</li>
+                                    <li key={exercise}>
+                                        {exercise}
+                                        <button onClick={() => fetchRecommendations(exercise)}>Get Recommendations</button>
+                                        {recommendations[exercise] && (
+                                            <ul>
+                                                {recommendations[exercise].map(rec => (
+                                                    <li key={rec}>{rec}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </li>
                                 ))}
                             </ul>
                         </div>
