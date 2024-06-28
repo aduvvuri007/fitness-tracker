@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Workout from './pages/Workout';
+import ExerciseList from './pages/ExerciseList';
+import ExerciseDetails from './pages/ExerciseDetails';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/workout" element={<Workout />} />
+        <Route path="/exercises" element={<ExerciseList />} />
+        <Route path="/exercises/:name" element={<ExerciseDetails />} />
       </Routes>
     </Router>
   );
