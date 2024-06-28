@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Workout = () => {
@@ -54,7 +55,12 @@ const Workout = () => {
                             <ul>
                                 {workout[day].map(exercise => (
                                     <li key={exercise}>
-                                        {exercise}
+                                        <Link to={{
+                                            pathname: `/exercises/${encodeURIComponent(exercise)}`,
+                                            state: { exercise }
+                                        }}>
+                                            {exercise}
+                                        </Link>
                                         <button onClick={() => fetchRecommendations(exercise)}>Get Recommendations</button>
                                         {recommendations[exercise] && (
                                             <ul>
