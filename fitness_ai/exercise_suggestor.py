@@ -68,12 +68,14 @@ def get_recommendations(name, selected_exercises=[], num_exercises=2, cosine_sim
     return df['name'].iloc[exercise_indices].tolist()
 
 # Muscle groups for workout routines
-push_muscles = ['chest', 'shoulders', 'triceps']
+# Push Pull Legs (PPL) workout routine
+push_muscles = ['chest', 'chest', 'chest', 'shoulders', 'shoulders', 'triceps']
 pull_muscles = ['middle back', 'biceps', 'forearms', 'lower back', 'lats', 'traps']
 legs_muscles = ['quadriceps', 'hamstrings', 'calves', 'glutes']
 
+# Arnold Schwarzenegger's Golden Six workout routine
 arnold_day_1 = ['chest', 'chest', 'middle back', 'lower back', 'lats', 'traps']
-arnold_day_2 = ['shoulders', 'biceps', 'forearms', 'triceps']
+arnold_day_2 = ['shoulders', 'shoulders', 'biceps', 'biceps', 'forearms', 'triceps']
 arnold_day_3 = ['quadriceps', 'hamstrings', 'calves', 'glutes']
 
 def select_exercises_from_muscle_group(muscles, num_exercises_per_muscle=2):
@@ -91,12 +93,12 @@ def select_exercises_from_muscle_group(muscles, num_exercises_per_muscle=2):
 
 def generate_ppl_workout():
     # Select exercises for push muscles
-    selected_exercises = select_exercises_from_muscle_group(push_muscles, num_exercises_per_muscle=2)
+    selected_exercises = select_exercises_from_muscle_group(push_muscles, num_exercises_per_muscle=1)
 
     # Get recommendations for each selected exercise
     push_recommendations = []
     for exercise in selected_exercises:
-        push_recommendations.extend(get_recommendations(exercise, push_recommendations))
+        push_recommendations.extend(get_recommendations(exercise, push_recommendations, num_exercises=1))
 
     # Select exercises for pull muscles
     selected_exercises = select_exercises_from_muscle_group(pull_muscles, num_exercises_per_muscle=1)
@@ -104,7 +106,7 @@ def generate_ppl_workout():
     # Get recommendations for each selected exercise
     pull_recommendations = []
     for exercise in selected_exercises:
-        pull_recommendations.extend(get_recommendations(exercise, pull_recommendations))
+        pull_recommendations.extend(get_recommendations(exercise, pull_recommendations, num_exercises=1))
 
     # Select exercises for leg muscles
     selected_exercises = select_exercises_from_muscle_group(legs_muscles, num_exercises_per_muscle=1)
@@ -112,7 +114,7 @@ def generate_ppl_workout():
     # Get recommendations for each selected exercise
     legs_recommendations = []
     for exercise in selected_exercises:
-        legs_recommendations.extend(get_recommendations(exercise, legs_recommendations))
+        legs_recommendations.extend(get_recommendations(exercise, legs_recommendations, num_exercises=1))
 
     workout = {
         'push': push_recommendations,
@@ -129,23 +131,23 @@ def generate_arnold_workout():
     # Get recommendations for each selected exercise
     day_1_recommendations = []
     for exercise in selected_exercises:
-        day_1_recommendations.extend(get_recommendations(exercise, day_1_recommendations))
+        day_1_recommendations.extend(get_recommendations(exercise, day_1_recommendations, num_exercises=1))
 
     # Select exercises for Arnold's day 2 muscles
-    selected_exercises = select_exercises_from_muscle_group(arnold_day_2, num_exercises_per_muscle=2)
+    selected_exercises = select_exercises_from_muscle_group(arnold_day_2, num_exercises_per_muscle=1)
 
     # Get recommendations for each selected exercise
     day_2_recommendations = []
     for exercise in selected_exercises:
-        day_2_recommendations.extend(get_recommendations(exercise, day_2_recommendations))
+        day_2_recommendations.extend(get_recommendations(exercise, day_2_recommendations, num_exercises=1))
 
     # Select exercises for Arnold's day 3 muscles
-    selected_exercises = select_exercises_from_muscle_group(arnold_day_3, num_exercises_per_muscle=2)
+    selected_exercises = select_exercises_from_muscle_group(arnold_day_3, num_exercises_per_muscle=1)
 
     # Get recommendations for each selected exercise
     day_3_recommendations = []
     for exercise in selected_exercises:
-        day_3_recommendations.extend(get_recommendations(exercise, day_3_recommendations))
+        day_3_recommendations.extend(get_recommendations(exercise, day_3_recommendations, num_exercises=1))
 
     workout = {
         'day_1': day_1_recommendations,
