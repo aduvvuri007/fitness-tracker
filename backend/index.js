@@ -1,20 +1,25 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth');
-const protectedRoutes = require('./routes/protected');
-
-const app = express();
-app.use(bodyParser.json());
-app.use('/api', authRoutes);
-app.use('/api', protectedRoutes);
 require('dotenv').config();
 
-const uri = process.env.MONGODB_URI;
+const express = require("express");
+const mongoose = require("mongoose");
+const userRoutes = require('./routes/user');
 
-mongoose.connect(uri);
+const app = express();
+app.use(express.json());
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next()
+})
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.use('/api/user', userRoutes);
+
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        // listen for requests
+        app.listen(process.env.PORT, () => {
+            console.log('connected to db & listening on port', process.env.PORT)
+        })
+    })
+    .catch((error) => {
+        console.log(error)
+    })
