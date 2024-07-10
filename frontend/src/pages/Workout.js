@@ -40,6 +40,15 @@ const Workout = () => {
         }
     };
 
+    const replaceExercise = (day, oldExercise, newExercise) => {
+        const newWorkout = { ...workout };
+        newWorkout[day] = newWorkout[day].map(exercise =>
+            exercise === oldExercise ? newExercise : exercise
+        );
+        setWorkout(newWorkout);
+        setRecommendations(prev => ({ ...prev, [oldExercise]: [] })); // Remove recommendations
+    };
+
     return (
         <div>
             <h1>Workout Generator</h1>
@@ -56,18 +65,36 @@ const Workout = () => {
                                 {workout[day].map(exercise => (
                                     <li key={exercise}>
                                         <Link to={{
+                                            openInNewTab: true,
                                             pathname: `/exercises/${encodeURIComponent(exercise)}`,
                                             state: { exercise }
-                                        }}>
+                                        }}
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                             {exercise}
                                         </Link>
                                         <button onClick={() => fetchRecommendations(exercise)}>Get Recommendations</button>
-                                        {recommendations[exercise] && (
-                                            <ul>
-                                                {recommendations[exercise].map(rec => (
-                                                    <li key={rec}>{rec}</li>
-                                                ))}
-                                            </ul>
+                                        {recommendations[exercise] && recommendations[exercise].length > 0 && (
+                                            <div>
+                                                <button onClick={() => setRecommendations(prev => ({ ...prev, [exercise]: [] }))}>
+                                                    Hide Recommendations
+                                                </button>
+                                                <ul>
+                                                    {recommendations[exercise].map(rec => (
+                                                        <li key={rec}>
+                                                            <Link to={{
+                                                                pathname: `/exercises/${encodeURIComponent(rec)}`,
+                                                                state: { rec }
+                                                            }}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer">
+                                                                {rec}
+                                                            </Link>
+                                                            <button onClick={() => replaceExercise(day, exercise, rec)}>Replace</button>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
                                         )}
                                     </li>
                                 ))}
