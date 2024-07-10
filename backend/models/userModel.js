@@ -30,12 +30,6 @@ userSchema.statics.register = async function (username, email, password) {
     if (!username || !email || !password) {
         throw Error('All fields are required');
     }
-    if (!validator.isEmail(email)) {
-        throw Error('Invalid email');
-    }
-    if (!validator.isStrongPassword(password)) {
-        throw Error('Password is not strong enough');
-    }
 
     const usernameExists = await this.findOne({ username });
     const emailExists = await this.findOne({ email });
@@ -46,6 +40,13 @@ userSchema.statics.register = async function (username, email, password) {
 
     if (emailExists) {
         throw Error('Email already in use');
+    }
+
+    if (!validator.isEmail(email)) {
+        throw Error('Invalid email');
+    }
+    if (!validator.isStrongPassword(password)) {
+        throw Error('Password is not strong enough');
     }
 
     const salt = await bcrypt.genSalt(10);
