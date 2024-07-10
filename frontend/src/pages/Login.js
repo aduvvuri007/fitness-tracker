@@ -1,25 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useLogin } from "../hooks/useLogin";
 
-function Login() {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+    const { login, loading, error } = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post('/api/login', { email, password });
-            if (response.data.success) {
-                localStorage.setItem('token', response.data.token);
-                navigate('/dashboard');
-            } else {
-                alert(response.data.message);
-            }
-        } catch (error) {
-            console.error("There was an error logging in!", error);
-        }
+        await login(email, password);
     };
 
     return (
@@ -45,7 +35,8 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit">Login</button>
+                    <button disabled={loading} type="submit">Login</button>
+                    {error && <div className="error">{error}</div>}
                 </form>
                 <p>Don't have an account? <Link to="/register">Register</Link></p>
             </div>
