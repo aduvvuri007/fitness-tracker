@@ -53,7 +53,9 @@ function ExerciseList() {
                             <Link to={{
                                 pathname: `/exercises/${encodeURIComponent(exercise.name)}`,
                                 state: { exercise }
-                            }}>
+                            }}
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 {exercise.name}
                             </Link>
                         </li>
