@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser")
 const userRoutes = require('./routes/user');
 const workoutRoutes = require('./routes/workout');
 
@@ -11,6 +12,7 @@ app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
 })
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/user', userRoutes);
 app.use('/api/workout', workoutRoutes);
