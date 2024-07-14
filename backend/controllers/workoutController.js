@@ -2,12 +2,13 @@ const Workout = require('../models/workoutModel');
 const mongoose = require('mongoose');
 
 const createWorkout = async (req, res) => {
-    const { userId, days } = req.body;
+    const { days } = req.body;
 
     try {
+        const userId = req.user._id;
         const workout = await Workout.create({ userId, days });
 
-        res.status(201).json(workout);
+        res.status(200).json(workout);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
