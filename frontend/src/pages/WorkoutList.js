@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
-const WorkoutDetails = () => {
+const WorkoutList = () => {
     const { workouts, dispatch } = useWorkoutsContext();
     const { user } = useAuthContext();
 
