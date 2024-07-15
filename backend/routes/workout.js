@@ -17,10 +17,11 @@ router.get('/get-workouts', getWorkouts);
 // get a workout
 router.get('/:id', getWorkout);
 
+// delete a workout
+router.delete('/:id', deleteWorkout);
+
 // update a workout
 router.patch('/:id', updateWorkout);
 
-// delete a workout
-router.delete('/:id', deleteWorkout);
 
 module.exports = router;
