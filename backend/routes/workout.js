@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { createWorkout, getWorkouts, getWorkout, deleteWorkout } = require('../controllers/workoutController');
+const { createWorkout, getWorkouts, getWorkout, deleteWorkout, updateWorkout } = require('../controllers/workoutController');
 const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get('/get-workouts', getWorkouts);
 router.get('/:id', getWorkout);
 
 // update a workout
-// router.patch('/:id', updateWorkout);
+router.patch('/:id', updateWorkout);
 
 // delete a workout
 router.delete('/:id', deleteWorkout);
