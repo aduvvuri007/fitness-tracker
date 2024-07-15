@@ -15,7 +15,7 @@ const createWorkout = async (req, res) => {
 }
 
 const getWorkouts = async (req, res) => {
-    const { userId } = req.user._id;
+    const userId = req.user._id;
 
     try {
         const workouts = await Workout.find({ userId });
