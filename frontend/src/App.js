@@ -10,6 +10,7 @@ import Workout from './pages/Workout';
 import ExerciseList from './pages/ExerciseList';
 import ExerciseDetails from './pages/ExerciseDetails';
 import CustomWorkout from './pages/CustomWorkout';
+import WorkoutDetais from './pages/WorkoutDetails';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/exercises/:name" element={user ? <ExerciseDetails /> : <Home />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Home />} />
         <Route path="/custom-workout" element={user ? <CustomWorkout /> : <Home />} />
+        <Route path="/workouts" element={user ? <WorkoutDetais /> : <Home />} />
       </Routes>
     </BrowserRouter>
   );

@@ -22,6 +22,10 @@ function Dashboard() {
                     <h2>Exercise Glossary</h2>
                     <p>Full List of all our exercises</p>
                 </div>
+                <div className="card" onClick={() => navigate("/workouts")}>
+                    <h2>Your Workouts</h2>
+                    <p>Full List of all your workouts</p>
+                </div>
             </div>
         </div>
     );
