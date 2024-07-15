@@ -46,7 +46,7 @@ const deleteWorkout = async (req, res) => {
     const { workoutId } = req.params;
 
     try {
-        await Workout.findByIdAndDelete(workoutId);
+        await Workout.findOneAndDelete(workoutId);
 
         res.status(204).send();
     } catch (error) {
