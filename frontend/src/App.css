@@ -110,3 +110,30 @@
   border-radius: 4px;
   margin: 20px 0;
 }
+
+.workout-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.workout-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.workout-card h2,
+.workout-card h3 {
+  margin: 0;
+}
+
+.workout-card ul {
+  padding-left: 20px;
+}
+
+.workout-card li {
+  list-style-type: disc;
+}
