@@ -11,6 +11,7 @@ function CustomWorkoutPlan() {
     const [currentPage, setCurrentPage] = useState(1);
     const exercisesPerPage = 10;
     const [workoutPlan, setWorkoutPlan] = useState([{ day: 1, exercises: [] }]);
+    const [error, setError] = useState(null)
     const maxDays = 7;
 
     useEffect(() => {
@@ -74,7 +75,7 @@ function CustomWorkoutPlan() {
     const handleSaveWorkout = async (e) => {
         e.preventDefault();
         if (!user) {
-            console.log('You must be logged in')
+            setError('You must be logged in')
             return
         }
 
@@ -94,7 +95,7 @@ function CustomWorkoutPlan() {
         const json = await response.json()
 
         if (!response.ok) {
-            console.log(json.error)
+            setError(json.error)
         }
         if (response.ok) {
             setWorkoutPlan([{ day: 1, exercises: [] }])
@@ -186,6 +187,7 @@ function CustomWorkoutPlan() {
             {workoutPlan.some(day => day.exercises.length > 0) && (
                 <div>
                     <button onClick={handleSaveWorkout}>Save Workout</button>
+                    {error && <div className="error">{error}</div>}
                 </div>
             )}
         </div>
