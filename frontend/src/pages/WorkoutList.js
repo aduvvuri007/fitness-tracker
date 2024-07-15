@@ -50,4 +50,4 @@ const WorkoutList = () => {
     );
 }
 
-export default WorkoutDetails;
+export default WorkoutList;
