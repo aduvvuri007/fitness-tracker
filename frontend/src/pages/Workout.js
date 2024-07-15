@@ -1,10 +1,55 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Workout = () => {
     const [workout, setWorkout] = useState(null);
     const [recommendations, setRecommendations] = useState({});
+    const { dispatch } = useWorkoutsContext();
+    const { user } = useAuthContext();
+    const [error, setError] = useState(null)
+
+
+    const handleSaveWorkout = async () => {
+        const newData = transformData(workout);
+
+        const workoutPlan = {
+            days: newData,
+        }
+
+        const response = await fetch('/api/workout/create-workout', {
+            method: 'POST',
+            body: JSON.stringify(workoutPlan),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+            setError(json.error)
+        }
+        if (response.ok) {
+            setWorkout(null)
+            dispatch({ type: 'CREATE_WORKOUT', payload: json })
+        }
+    }
+
+    const transformData = (data) => {
+        return Object.keys(data).map((key, index) => {
+            const dayNumber = index + 1;
+            const exercises = data[key].map(exercise => ({ name: exercise }));
+
+            return {
+                day: dayNumber,
+                exercises: exercises
+            };
+        });
+    };
 
     const fetchPPLWorkout = async () => {
         try {
@@ -18,6 +63,7 @@ const Workout = () => {
     const fetchArnoldWorkout = async () => {
         try {
             const response = await axios.get('http://127.0.0.1:5000/api/generate_arnold_workout');
+            console.log(response.data);
             setWorkout(response.data);
         } catch (error) {
             console.error('Error fetching Arnold workout', error);
@@ -101,6 +147,8 @@ const Workout = () => {
                             </ul>
                         </div>
                     ))}
+                    <button onClick={handleSaveWorkout}>Save Workout</button>
+                    {error && <div className="error">{error}</div>}
                 </div>
             )}
         </div>
